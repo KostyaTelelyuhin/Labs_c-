@@ -4,6 +4,11 @@
 #include <chrono>
 #include <stdlib.h>
 #include <random>
+#include <algorithm>
+#include <vector> 
+
+
+
 using namespace std;
 
 
@@ -21,8 +26,9 @@ int full_search(int a[], int N, int element){
   return time_span.count();
 }
 
-
-
+int comp1 (const void * a, const void * b){
+  return ( *(int*)a - *(int*)b );
+}
 
 
 int binary_search(int arr[], int low, int high, int target) {
@@ -40,29 +46,44 @@ int binary_search(int arr[], int low, int high, int target) {
         return binary_search(arr, mid + 1, high, target);
     }
 }
+
+
 int main() {
-  int All = 100;
-  int Numbers[All];
-  int time_do[All];
   srand(time(0));
+
+  int All = 100;
+  long long Numbers[All];
+  long long time_do[All];
+
+  long long MAX_COUNT = 1000000;
   for (int i = 0;i<All;i++){
-    int N = rand() % 1000000 + 1; 
+    long long N = (RAND_MAX - rand()) * MAX_COUNT / RAND_MAX + 1; 
     Numbers[i] = N;
     int average = 0;
-    int reprize = 100;
+    int reprize = 10;
     for(int j = 0; j < reprize; j++){
       int a[N];
-
+     //Создание массива
       for(int k = 0; k < N; k++) {
-          a[k] = rand() % 100000 + 1;
+          a[k] = (RAND_MAX - rand()) * MAX_COUNT / RAND_MAX + 1;
+
       }
 
-      int element = rand() % 100000 + 1;
+      //сортировка массивка(только для бинпоиска)
+      qsort (a, N, sizeof(int), comp1);
 
+      // Элемент массива
+     //int element = a[(RAND_MAX - rand()) * N / RAND_MAX] ;     
+      int element = -1;
 
       //Начало чeго-то
+      auto begin = std::chrono::steady_clock ::now();
+      //int TIME_SPAN  = full_search(a, N, element);
+      binary_search(a, 0, N - 1, element);
 
-      int TIME_SPAN  = full_search(a, N, element);
+      auto end = chrono :: steady_clock ::now();
+      auto time_span = chrono :: duration_cast < chrono :: nanoseconds > (end - begin);
+      int TIME_SPAN = time_span.count();
       average = average + TIME_SPAN;
       }
 
