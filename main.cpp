@@ -8,7 +8,7 @@
 #include <vector> 
 
 
-
+//a1
 using namespace std;
 
 int MASSIVE[1000000];
