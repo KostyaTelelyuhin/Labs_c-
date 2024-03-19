@@ -63,7 +63,7 @@ int binary_search(int arr[], int low, int high, int target) {
 
 int search_sum(int a[], int N, int sum){
   for (int i = 0; i < N - 1; i++){
-    //cout << "i = " <<i <<  endl1;
+    //cout << "i = " <<i <<  endl;
     //cout << "j  = ";
     for(int j = i + 1; j < N; j++){
       //cout  << j <<" ";
